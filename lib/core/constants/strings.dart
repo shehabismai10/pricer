@@ -1,0 +1,1 @@
+const serverError='Something went wrong';

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "534421013624",
+    "project_id": "pricer-8e50c",
+    "storage_bucket": "pricer-8e50c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534421013624:android:9e7adb981ec89ff5fe998d",
+        "android_client_info": {
+          "package_name": "com.example.pricer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAwyDkgPidgqbuH4qBbYG_JjawadrLdXc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
