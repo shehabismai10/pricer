@@ -5,10 +5,12 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pricer/core/constants/strings.dart';
 import 'package:pricer/core/failure/failure.dart';
+import 'package:pricer/core/serviceLocator/service_locator.dart';
+import 'package:pricer/data/helpers/cache_helper.dart';
 import 'package:pricer/features/auth/data/entity/user_model.dart';
 
 abstract class AuthRepository {
-  Future<Either<Failure, UserModel>> success(
+  Future<Either<Failure, UserModel>> login(
       {required String email, required String password});
 
   Future<Either<Failure, UserModel>> getUserData({required String uid});
@@ -21,14 +23,16 @@ abstract class AuthRepository {
 
 class AuthRepositoryImplementation implements AuthRepository {
   @override
-  Future<Either<Failure, UserModel>> success(
+  Future<Either<Failure, UserModel>> login(
       {required String email, required String password}) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (userCredential.user == null) {
+
         return const Left(ServerFailure(serverError));
       } else {
+        serviceLocator<CacheHelper>().saveData(key: 'uid', value: userCredential.user!.uid);
         final result = await getUserData(uid: userCredential.user!.uid);
         return result;
       }
