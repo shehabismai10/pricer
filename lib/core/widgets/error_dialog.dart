@@ -21,7 +21,7 @@ class ErrorDialog extends StatelessWidget {
       ),
       content: Text(
         message,
-        style: largeTextStyle.copyWith(color: Colors.black),textAlign: TextAlign.center,
+        style: regularTextStyle.copyWith(color: Colors.black),textAlign: TextAlign.center,
       ),
     );
   }
