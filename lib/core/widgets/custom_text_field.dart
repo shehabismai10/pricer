@@ -72,7 +72,7 @@ class CustomTextField extends StatelessWidget {
                 color:
                 fillColor == primaryColor ? Colors.white : Colors.black)
                 : null,
-            enabled: enabled ?? false,
+            enabled: enabled ?? true,
             keyboardType:
             isNumber != null && isNumber! ? TextInputType.number : null,
             obscureText: visible ?? false,

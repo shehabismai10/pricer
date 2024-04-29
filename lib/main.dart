@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pricer/data/helpers/state_management_helper.dart';
 import 'package:pricer/features/auth/presentation/pages/login_page.dart';
+import 'package:pricer/firebase_options.dart';
 
 import 'core/serviceLocator/service_locator.dart';
 import 'data/helpers/cache_helper.dart';
@@ -12,7 +13,9 @@ GlobalKey<ScaffoldMessengerState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupServiceLocator();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await CacheHelper().init();
   runApp(const MyApp());
 }

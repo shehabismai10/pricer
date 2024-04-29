@@ -1,31 +1,22 @@
 part of 'auth_bloc.dart';
 
-@immutable
-abstract class AuthState {
-  final UserModel? user;
-
-  AuthState({this.user});
+  class AuthState {
+   UserModel? user;
+   String?message;
+   LoginStatus?status;
+  AuthState({this.user,this.message,this.status});
+  AuthState.initialize():user=null,message=null,status=LoginStatus.initial;
+  AuthState copyWith({UserModel? user,String? message,LoginStatus? status}){
+    return AuthState(status: status??this.status,message: message??this.message,user: user??this.user);
+  }
 }
 
-class AuthInitial extends AuthState {}
 
-class AuthLoading extends AuthState {}
-
-class LoggedIn extends AuthState {
-  final UserModel userModel;
-
-  LoggedIn({required this.userModel});
-
-  @override
-  UserModel? get user => userModel;
-}
-
-class LoggedOut extends AuthState {}
-
-class UserCreated extends AuthState {}
-
-class AuthError extends AuthState {
-  final String message;
-
-  AuthError({required this.message});
+enum LoginStatus{
+  initial,
+  loading,
+  loggedIn,
+  loggedOut,
+  userCreated,
+  error
 }

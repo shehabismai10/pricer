@@ -11,7 +11,7 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(AuthInitial()) {
+  AuthBloc() : super(AuthState.initialize()) {
     on<Login>(onLogin);
     on<Register>(onRegister);
   }
@@ -21,14 +21,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void onLogin(Login event, Emitter<AuthState> emit) async {
     final result =
         await authLocator.login(email: event.email, password: event.password);
-    result.fold((l) => emit(AuthError(message: l.message)),
-        (r) => emit(LoggedIn(userModel: r)));
+    result.fold((l) => emit(AuthState(message: l.message,status: LoginStatus.error)),
+        (r) => emit(AuthState(user: r,status: LoginStatus.loggedIn)));
   }
 
   void onRegister(Register event, Emitter<AuthState> emit) async {
     final result = await authLocator.register(
         email: event.email, password: event.password, name: event.name);
     result.fold(
-        (l) => emit(AuthError(message: l.message)), (r) => emit(UserCreated()));
+        (l) => emit(AuthState(message: l.message,status: LoginStatus.error)), (r) => emit(AuthState(status: LoginStatus.userCreated)));
   }
 }
