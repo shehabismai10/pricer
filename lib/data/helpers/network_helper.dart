@@ -16,7 +16,7 @@ class NetworkHelper {
     var res = await http.post(uri, body: json.encode(body), headers: {
       if (!login) "Authorization": "bearer $token",
       "Content-Type": "application/json"
-    });
+    }).timeout(Duration(minutes: 3));
     return res;
   }
 
