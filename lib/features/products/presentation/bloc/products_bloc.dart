@@ -25,6 +25,6 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
         (l) => emit(
             state.copyWith(message: l.message, status: ProductStatus.error)),
         (r) => emit(
-            state.copyWith(productModel: r, status: ProductStatus.loaded)));
+            state.copyWith(scrapingModel: r, status: ProductStatus.loaded)));
   }
 }

@@ -1,19 +1,24 @@
 part of 'products_bloc.dart';
 
 class ProductsState {
-  ProductModel? productModel;
+  ScrapingModel? scrapingModel;
   ProductStatus? status;
   String? message;
-  ProductsState({this.message,this.productModel, this.status});
+
+  ProductsState({this.message, this.scrapingModel, this.status});
 
   ProductsState.init()
-      : productModel = null,
+      : scrapingModel = null,
+        message = null,
         status = ProductStatus.initial;
 
-  ProductsState copyWith({ProductModel?productModel,ProductStatus?status,String?message}){
-    return ProductsState(productModel: productModel??this.productModel,status: status??this.status,message: message??this.message);
+  ProductsState copyWith(
+      {ScrapingModel? scrapingModel, ProductStatus? status, String? message}) {
+    return ProductsState(
+        scrapingModel: scrapingModel ?? this.scrapingModel,
+        status: status ?? this.status,
+        message: message ?? this.message);
   }
-
 }
 
 enum ProductStatus { initial, loading, loaded, error }
