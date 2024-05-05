@@ -8,7 +8,7 @@ import 'package:pricer/data/helpers/navigation_helper.dart';
 import 'package:pricer/features/auth/data/helper/auth_helper.dart';
 import 'package:pricer/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pricer/features/auth/presentation/pages/login_page.dart';
-import 'package:pricer/features/home/presentation/homePage.dart';
+import 'package:pricer/features/home/presentation/pages/homePage.dart';
 
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../data/helpers/validation_helper.dart';

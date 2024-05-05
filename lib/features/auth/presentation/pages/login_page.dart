@@ -11,7 +11,7 @@ import 'package:pricer/data/helpers/validation_helper.dart';
 import 'package:pricer/features/auth/data/helper/auth_helper.dart';
 import 'package:pricer/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pricer/features/auth/presentation/pages/register_page.dart';
-import 'package:pricer/features/home/presentation/homePage.dart';
+import 'package:pricer/features/home/presentation/pages/homePage.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {

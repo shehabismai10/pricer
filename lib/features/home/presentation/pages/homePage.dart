@@ -10,6 +10,8 @@ import 'package:pricer/core/widgets/custom_button.dart';
 import 'package:pricer/core/widgets/custom_text_field.dart';
 import 'package:pricer/core/widgets/error_dialog.dart';
 import 'package:pricer/core/widgets/loading.dart';
+import 'package:pricer/data/helpers/navigation_helper.dart';
+import 'package:pricer/features/home/presentation/pages/profile_page.dart';
 import 'package:pricer/features/products/presentation/bloc/products_bloc.dart';
 import 'package:pricer/features/products/presentation/widgets/products_list.dart';
 
@@ -27,8 +29,10 @@ class HomePage extends StatelessWidget {
           backgroundColor: Colors.deepPurple,
           title: Text(
             'Pricer',
-            style: regularTextStyle.copyWith(color: Colors.white),
-          ),
+            style: regularTextStyle.copyWith(color: Colors.white,fontWeight: FontWeight.w900),
+          ),leading: InkWell(onTap: () {
+            navigateTo(context, ProfilePage());
+          },child: const Icon(Icons.person,color: Colors.white,)),
           bottom: TabBar(
             tabs: const [
               Tab(
