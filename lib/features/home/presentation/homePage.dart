@@ -1,15 +1,15 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pricer/core/constants/colors.dart';
 import 'package:pricer/core/constants/enums.dart';
 import 'package:pricer/core/constants/styles.dart';
 import 'package:pricer/core/widgets/custom_button.dart';
 import 'package:pricer/core/widgets/custom_text_field.dart';
 import 'package:pricer/core/widgets/error_dialog.dart';
+import 'package:pricer/core/widgets/loading.dart';
 import 'package:pricer/features/products/presentation/bloc/products_bloc.dart';
 import 'package:pricer/features/products/presentation/widgets/products_list.dart';
 
@@ -44,7 +44,10 @@ class HomePage extends StatelessWidget {
                 text: 'Used',
               ),
             ],
-            labelStyle: regularTextStyle.copyWith(fontWeight: FontWeight.w500,color: Colors.white),
+            labelStyle: regularTextStyle.copyWith(
+                fontWeight: FontWeight.w500, color: Colors.white),
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.grey,
           ),
         ),
         body: Padding(
@@ -79,38 +82,42 @@ class HomePage extends StatelessWidget {
                             }
                           },
                         ),
+
                         CustomButton(
                           color: Colors.deepPurple,
                           size: Size(90.w, 30.h),
                           onPressed: () {
                             if (state.status != ProductStatus.loading) {
                               if (search.text.isNotEmpty) {
-                                 BlocProvider.of<ProductsBloc>(context,
+                                BlocProvider.of<ProductsBloc>(context,
                                         listen: false)
                                     .add(GetProducts(query: search.text));
                               }
                             }
                           },
                           title: 'Search',
-                          child: state.status == ProductStatus.loading
-                              ? const CircularProgressIndicator(color: Colors.white,)
-                              : Text(
-                                  'Search',
-                                  style: regularTextStyle.copyWith(
-                                      color: Colors.white, fontSize: 13.sp),
-                                ),
+                          child: Text(
+                            'Search',
+                            style: regularTextStyle.copyWith(
+                                color: Colors.white, fontSize: 13.sp),
+                          ),
                         )
                       ],
                     ),
-               state.status==ProductStatus.loading?Center(child: CircularProgressIndicator(color: Colors.deepPurple,),):     SizedBox(
-                      height: MediaQuery.of(context).size.height - 100,
-                      child: TabBarView(children: const [
-                        ProductsList(types: SiteTypes.amazon),
-                        ProductsList(types: SiteTypes.noon),
-                        ProductsList(types: SiteTypes.dubizzle),
-                        ProductsList(types: SiteTypes.btech),
-                      ]),
-                    )
+                    state.status == ProductStatus.loading
+                        ? const LottieWidget(type: LottieType.loading)
+                        : Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15).r,
+                                border: Border.all(color: primaryColor)),
+                            height: MediaQuery.of(context).size.height - 100,
+                            child: const TabBarView(children: [
+                              ProductsList(types: SiteTypes.amazon),
+                              ProductsList(types: SiteTypes.noon),
+                              ProductsList(types: SiteTypes.dubizzle),
+                              ProductsList(types: SiteTypes.btech),
+                            ]),
+                          )
                   ],
                 ),
               );

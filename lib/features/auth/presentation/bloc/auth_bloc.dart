@@ -19,6 +19,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final authLocator = serviceLocator<AuthRepositoryImplementation>();
 
   void onLogin(Login event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(status: LoginStatus.loading));
     final result =
         await authLocator.login(email: event.email, password: event.password);
     result.fold((l) => emit(AuthState(message: l.message,status: LoginStatus.error)),
@@ -26,6 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void onRegister(Register event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(status: LoginStatus.loading));
     final result = await authLocator.register(
         email: event.email, password: event.password, name: event.name);
     result.fold(

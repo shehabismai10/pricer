@@ -70,7 +70,7 @@ class ProductModel {
   ProductModel.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     price = json['price'];
-    image = json['image'];
+    image = json['image'].toString().trim();
     link = json['link'];
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pricer/core/constants/enums.dart';
+import 'package:pricer/core/widgets/loading.dart';
 import 'package:pricer/features/products/presentation/bloc/products_bloc.dart';
 import 'package:pricer/features/products/presentation/widgets/product_widget.dart';
 
@@ -43,18 +44,13 @@ class ProductsList extends StatelessWidget {
           itemBuilder: (context, index) {
             ProductModel? productModel =
                 getProductList(types, state.scrapingModel)?[index];
-            return productModel == null
+            return productModel == null||productModel.title?.isEmpty==true
                 ? const SizedBox.shrink()
                 : ProductWidget(productModel: productModel);
           },
         );
       } else {
-        return Center(
-          child: Text(
-            "No data found",
-            style: regularTextStyle,
-          ),
-        );
+        return const LottieWidget(type: LottieType.empty);
       }
     });
   }
