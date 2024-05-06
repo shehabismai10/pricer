@@ -92,12 +92,12 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                     BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
-                      if (state.status == LoginStatus.loggedIn) {
+                      if (state.status == AuthStatus.loggedIn) {
                         WidgetsBinding.instance.addPostFrameCallback((_) {
                           navigateAndReplace(context, const HomePage());
                         });
                       }
-                      if (state.status == LoginStatus.userCreated) {
+                      if (state.status == AuthStatus.userCreated) {
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             backgroundColor: Colors.green,
@@ -107,7 +107,7 @@ class LoginPage extends StatelessWidget {
                                   regularTextStyle.copyWith(color: Colors.white),
                             )));
                       }
-                      if (state.status == LoginStatus.error) {
+                      if (state.status == AuthStatus.error) {
                         showDialog(
                           context: context,
                           builder: (context) {
@@ -118,7 +118,7 @@ class LoginPage extends StatelessWidget {
                     }, builder: (context, state) {
                       return CustomButton(
                         onPressed: () {
-                        if(state.status != LoginStatus.loading){
+                        if(state.status != AuthStatus.loading){
                           if (Provider.of<AuthHelper>(context,listen: false)
                               .loginForm
                               .currentState
@@ -134,8 +134,8 @@ class LoginPage extends StatelessWidget {
                         size: Size(150.w, 40.h),
                         title: 'Login',
                         color: Colors.green,
-                        loading: state.status == LoginStatus.loading,
-                        child:state.status == LoginStatus.loading?const CircularProgressIndicator(): Text(
+                        loading: state.status == AuthStatus.loading,
+                        child:state.status == AuthStatus.loading?const CircularProgressIndicator(): Text(
                           'Login',
                           style: regularTextStyle.copyWith(color: Colors.white),
                         ),

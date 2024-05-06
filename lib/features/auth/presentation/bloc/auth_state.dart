@@ -3,16 +3,16 @@ part of 'auth_bloc.dart';
 class AuthState {
   UserModel? user;
   String? message;
-  LoginStatus? status;
+  AuthStatus? status;
 
   AuthState({this.user, this.message, this.status});
 
   AuthState.initialize()
       : user = null,
         message = null,
-        status = LoginStatus.initial;
+        status = AuthStatus.initial;
 
-  AuthState copyWith({UserModel? user, String? message, LoginStatus? status}) {
+  AuthState copyWith({UserModel? user, String? message, AuthStatus? status}) {
     return AuthState(
         status: status ?? this.status,
         message: message ?? this.message,
@@ -20,4 +20,4 @@ class AuthState {
   }
 }
 
-enum LoginStatus { initial, loading, loggedIn, loggedOut, userCreated, error }
+enum AuthStatus { initial, loading, loggedIn, loggedOut, userCreated, error }

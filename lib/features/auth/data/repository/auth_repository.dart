@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pricer/core/constants/strings.dart';
 import 'package:pricer/core/failure/failure.dart';
 import 'package:pricer/core/serviceLocator/service_locator.dart';
+import 'package:pricer/core/success/success.dart';
 import 'package:pricer/data/helpers/cache_helper.dart';
 import 'package:pricer/features/auth/data/entity/user_model.dart';
 
@@ -19,6 +20,8 @@ abstract class AuthRepository {
       {required String email, required String password, required String name});
 
   Future<Either<Failure, UserModel>> createUser({required UserModel userModel});
+
+  Either<Failure, Success> logout();
 }
 
 class AuthRepositoryImplementation implements AuthRepository {
@@ -29,10 +32,10 @@ class AuthRepositoryImplementation implements AuthRepository {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (userCredential.user == null) {
-
         return const Left(ServerFailure(serverError));
       } else {
-        serviceLocator<CacheHelper>().saveData(key: 'uid', value: userCredential.user!.uid);
+        serviceLocator<CacheHelper>()
+            .saveData(key: 'uid', value: userCredential.user!.uid);
         final result = await getUserData(uid: userCredential.user!.uid);
         return result;
       }
@@ -91,5 +94,12 @@ class AuthRepositoryImplementation implements AuthRepository {
     } on FirebaseException catch (e) {
       return Left(ServerFailure(e.message ?? serverError));
     }
+  }
+
+  @override
+  Either<Failure, Success> logout() {
+    serviceLocator<CacheHelper>().clearData();
+    FirebaseAuth.instance.signOut();
+    return const Right(Success());
   }
 }

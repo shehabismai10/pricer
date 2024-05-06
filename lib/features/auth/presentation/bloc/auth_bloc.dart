@@ -14,23 +14,31 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthState.initialize()) {
     on<Login>(onLogin);
     on<Register>(onRegister);
+    on<Logout>(onLogout);
   }
 
   final authLocator = serviceLocator<AuthRepositoryImplementation>();
 
   void onLogin(Login event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(status: LoginStatus.loading));
+    emit(state.copyWith(status: AuthStatus.loading));
     final result =
         await authLocator.login(email: event.email, password: event.password);
-    result.fold((l) => emit(AuthState(message: l.message,status: LoginStatus.error)),
-        (r) => emit(AuthState(user: r,status: LoginStatus.loggedIn)));
+    result.fold((l) => emit(AuthState(message: l.message,status: AuthStatus.error)),
+        (r) => emit(AuthState(user: r,status: AuthStatus.loggedIn)));
   }
 
   void onRegister(Register event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(status: LoginStatus.loading));
+    emit(state.copyWith(status: AuthStatus.loading));
     final result = await authLocator.register(
         email: event.email, password: event.password, name: event.name);
     result.fold(
-        (l) => emit(AuthState(message: l.message,status: LoginStatus.error)), (r) => emit(AuthState(status: LoginStatus.userCreated)));
+        (l) => emit(AuthState(message: l.message,status: AuthStatus.error)), (r) => emit(AuthState(status: AuthStatus.userCreated)));
+  }
+
+  void onLogout(Logout event,Emitter<AuthState>emit){
+final result=    authLocator.logout();
+result.fold(
+        (l) => emit(AuthState(message: l.message,status: AuthStatus.error)), (r) => emit(AuthState(status: AuthStatus.loggedOut)));
+
   }
 }

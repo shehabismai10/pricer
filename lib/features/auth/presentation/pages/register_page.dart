@@ -101,12 +101,12 @@ class RegisterPage extends StatelessWidget {
                     ),
                   ),
                   BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
-                    if (state.status == LoginStatus.loggedIn) {
+                    if (state.status == AuthStatus.loggedIn) {
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         navigateAndReplace(context, const HomePage());
                       });
                     }
-                    if (state.status == LoginStatus.userCreated) {
+                    if (state.status == AuthStatus.userCreated) {
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           backgroundColor: Colors.green,
@@ -116,7 +116,7 @@ class RegisterPage extends StatelessWidget {
                                 regularTextStyle.copyWith(color: Colors.white),
                           )));
                     }
-                    if (state.status == LoginStatus.error) {
+                    if (state.status == AuthStatus.error) {
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -127,7 +127,7 @@ class RegisterPage extends StatelessWidget {
                   }, builder: (context, state) {
                     return CustomButton(
                       onPressed: () {
-                      if( state.status != LoginStatus.loading){
+                      if( state.status != AuthStatus.loading){
                         if (authHelper.registerForm.currentState?.validate() == true) {
                           BlocProvider.of<AuthBloc>(context, listen: false).add(
                               Register(
@@ -139,8 +139,8 @@ class RegisterPage extends StatelessWidget {
                       size: Size(150.w, 40.h),
                       title: 'Create account',
                       color: Colors.green,
-                      loading: state.status == LoginStatus.loading,
-                      child:  state.status == LoginStatus.loading?CircularProgressIndicator():Text(
+                      loading: state.status == AuthStatus.loading,
+                      child:  state.status == AuthStatus.loading?CircularProgressIndicator():Text(
                         'Create account',
                         style: regularTextStyle.copyWith(color: Colors.white),
                       ),

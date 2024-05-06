@@ -8,6 +8,7 @@ class Login extends AuthEvent{
 
   Login({required this.email, required this.password});
 }
+class Logout extends AuthEvent{}
 
  class Register extends  AuthEvent{
   final String email;
