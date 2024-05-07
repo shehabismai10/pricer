@@ -89,7 +89,7 @@ class CustomTextField extends StatelessWidget {
                     .copyWith(color: Colors.red, fontSize: 14.sp),
                 errorMaxLines: 1,
                 contentPadding:
-                EdgeInsets.only(right: 3.w, bottom: 2.h, top: 2.h),
+                EdgeInsets.only(left: 5.w,right: 3.w, bottom: 2.h, top: 2.h),
                 iconColor: hintColor,
                 suffixIcon: suffix,
                 counterStyle: const TextStyle(

@@ -42,7 +42,7 @@ class ProfilePage extends StatelessWidget {
           'Profile',
           style: regularTextStyle.copyWith(color: Colors.white),
         ),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: primaryColor,
       ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
@@ -227,7 +227,7 @@ class ProfilePage extends StatelessWidget {
                             child: Text(
                               userModel.email ?? '',
                               style: largeTextStyle.copyWith(
-                                  color: Colors.deepPurple),
+                                  color: primaryColor),
                             ))),
                     const Spacer(),
                     Padding(

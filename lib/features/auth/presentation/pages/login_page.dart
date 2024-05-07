@@ -14,6 +14,8 @@ import 'package:pricer/features/auth/presentation/pages/register_page.dart';
 import 'package:pricer/features/home/presentation/pages/homePage.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/constants/colors.dart';
+
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
@@ -24,150 +26,170 @@ class LoginPage extends StatelessWidget {
         body: Form(
       key: authHelper.loginForm,
       child: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Positioned(
-              top: 0,
-              child: Container(
-                height: 250.h,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    color: Colors.deepPurple,
-                    borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(15.r),
-                        bottomLeft: Radius.circular(15.r))),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20).w,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 100.h, bottom: 10.h),
-                      child: Text(
-                        "Pricer",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30.sp,
-                            fontWeight: FontWeight.w800),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 140.h),
-                      child: Text(
-                        "Welcome back",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w800),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 30.0.h),
-                      child: CustomTextField(
-                        textEditingController: authHelper.email,
-                        hintText: 'Email',
-                        validation: (p0) {
-                          if (!ValidationHelper.validateEmail(p0)) {
-                            return "Please check your email";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 30.0.h),
-                      child: CustomTextField(
-                        textEditingController:
-                            authHelper.password,
-                        hintText: 'Password',
-                        visible: true,
-                        validation: (p0) {
-                          if (!ValidationHelper.validatePassword(p0)) {
-                            return "Password length must be more than 6 character";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
-                      if (state.status == AuthStatus.loggedIn) {
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          navigateAndReplace(context, const HomePage());
-                        });
-                      }
-                      if (state.status == AuthStatus.userCreated) {
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            backgroundColor: Colors.green,
-                            content: Text(
-                              'User created',
-                              style:
-                                  regularTextStyle.copyWith(color: Colors.white),
-                            )));
-                      }
-                      if (state.status == AuthStatus.error) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return ErrorDialog(message: state.message ?? '');
-                          },
-                        );
-                      }
-                    }, builder: (context, state) {
-                      return CustomButton(
-                        onPressed: () {
-                        if(state.status != AuthStatus.loading){
-                          if (Provider.of<AuthHelper>(context,listen: false)
-                              .loginForm
-                              .currentState
-                              ?.validate() ==
-                              true) {
-                            BlocProvider.of<AuthBloc>(context, listen: false).add(
-                                Login(
-                                    email: authHelper.email.text,
-                                    password: authHelper.password.text));
-                          }
-                        }
-                        },
-                        size: Size(150.w, 40.h),
-                        title: 'Login',
-                        color: Colors.green,
-                        loading: state.status == AuthStatus.loading,
-                        child:state.status == AuthStatus.loading?const CircularProgressIndicator(): Text(
-                          'Login',
-                          style: regularTextStyle.copyWith(color: Colors.white),
-                        ),
-                      );
-                    }),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0).h,
-                      child: Row(
-                        children: [
-                          Text(
-                            'New here?',
-                            style: regularTextStyle,
-                          ),
-                          TextButton(
-                              onPressed: () {
-                                navigateAndReplace(context, const RegisterPage());
-                              },
-                              child: Text(
-                                'Create account!',
-                                style: regularTextStyle.copyWith(
-                                    color: Colors.deepPurple),
-                              )),
-                        ],
-                      ),
-                    )
-                  ],
+        child: Container(width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 0,
+                child: Container(
+                  height: MediaQuery.of(context).size.height/2.5,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(15.r),
+                          bottomLeft: Radius.circular(15.r))),
                 ),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20).w,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 100.h, bottom: 10.h),
+                        child: Text(
+                          "Pricer",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30.sp,
+                              fontWeight: FontWeight.w800),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 140.h),
+                        child: Text(
+                          "Welcome back",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w800),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 30.0.h),
+                        child: CustomTextField(
+                          textEditingController: authHelper.email,
+                          hintText: 'Email',
+                          validation: (p0) {
+                            if (!ValidationHelper.validateEmail(p0)) {
+                              return "Please check your email";
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 30.0.h),
+                        child: CustomTextField(
+                          textEditingController:
+                              authHelper.password,
+                          hintText: 'Password',
+                          visible: true,
+                          validation: (p0) {
+                            if (!ValidationHelper.validatePassword(p0)) {
+                              return "Password length must be more than 6 character";
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
+                        if (state.status == AuthStatus.loggedIn) {
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            navigateAndReplace(context, const HomePage());
+                          });
+                        }
+                        if (state.status == AuthStatus.userCreated) {
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              backgroundColor: Colors.green,
+                              content: Text(
+                                'User created',
+                                style:
+                                    regularTextStyle.copyWith(color: Colors.white),
+                              )));
+                        }
+                        if (state.status == AuthStatus.error) {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return ErrorDialog(message: state.message ?? '');
+                            },
+                          );
+                        }
+                      }, builder: (context, state) {
+                        return CustomButton(
+                          onPressed: () {
+                          if(state.status != AuthStatus.loading){
+                            if (Provider.of<AuthHelper>(context,listen: false)
+                                .loginForm
+                                .currentState
+                                ?.validate() ==
+                                true) {
+                              BlocProvider.of<AuthBloc>(context, listen: false).add(
+                                  Login(
+                                      email: authHelper.email.text,
+                                      password: authHelper.password.text));
+                            }
+                          }
+                          },
+                          size: Size(150.w, 40.h),
+                          title: 'Login',
+                          color: primaryColor,
+                          loading: state.status == AuthStatus.loading,
+                          child:state.status == AuthStatus.loading?const CircularProgressIndicator(): Text(
+                            'Login',
+                            style: regularTextStyle.copyWith(color: Colors.white),
+                          ),
+                        );
+                      }),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0).h,
+                        child: Row(
+                          children: [
+                            Text(
+                              'New here?',
+                              style: regularTextStyle,
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pushReplacement(_createRoute());
+                                  // navigateAndReplace(context, const RegisterPage());
+                                },
+                                child: Text(
+                                  'Create account!',
+                                  style: regularTextStyle.copyWith(
+                                      color: primaryColor),
+                                )),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     ));
   }
+}
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => const RegisterPage(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = const Offset(1.0, 0.0);
+      var end = Offset.zero;
+      var curve = Curves.easeIn;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }

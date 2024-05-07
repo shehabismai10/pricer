@@ -7,6 +7,8 @@ import 'package:pricer/features/products/data/entity/product_model.dart';
 import 'package:pricer/features/products/presentation/pages/product_details_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/constants/colors.dart';
+
 class ProductWidget extends StatelessWidget {
   final ProductModel productModel;
 
@@ -39,7 +41,7 @@ class ProductWidget extends StatelessWidget {
           ),
         ),trailing: IconButton(onPressed: () {
           launchUrl(Uri.parse(productModel.link??''));
-        }, icon: const Icon(Icons.shopping_cart,color: Colors.deepPurple,)),
+        }, icon: const Icon(Icons.shopping_cart,color: primaryColor,)),
       ),
     );
   }

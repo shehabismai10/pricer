@@ -26,13 +26,16 @@ class HomePage extends StatelessWidget {
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: primaryColor,
           title: Text(
             'Pricer',
             style: regularTextStyle.copyWith(color: Colors.white,fontWeight: FontWeight.w900),
-          ),actions:[ InkWell(onTap: () {
-            navigateTo(context, const ProfilePage());
-          },child: const Icon(Icons.settings,color: Colors.white,)),],
+          ),actions:[ Padding(
+            padding: const EdgeInsets.only(right: 8.0).w,
+            child: InkWell(onTap: () {
+              navigateTo(context, const ProfilePage());
+            },child: const Icon(Icons.settings,color: Colors.white,)),
+          ),],
           bottom: TabBar(
             tabs: const [
               Tab(
@@ -49,9 +52,9 @@ class HomePage extends StatelessWidget {
               ),
             ],
             labelStyle: regularTextStyle.copyWith(
-                fontWeight: FontWeight.w500, color: Colors.white),
+                fontWeight: FontWeight.w600, color: Colors.white),
             labelColor: Colors.white,
-            unselectedLabelColor: Colors.grey,
+            unselectedLabelColor: Colors.black,
           ),
         ),
         body: Padding(
@@ -87,7 +90,7 @@ class HomePage extends StatelessWidget {
                       ),
 
                       CustomButton(
-                        color: Colors.deepPurple,
+                        color: primaryColor,
                         size: Size(90.w, 30.h),
                         onPressed: () {
                           if (state.status != ProductStatus.loading) {

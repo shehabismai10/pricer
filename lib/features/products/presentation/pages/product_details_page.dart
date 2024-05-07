@@ -7,6 +7,8 @@ import 'package:pricer/core/widgets/custom_button.dart';
 import 'package:pricer/features/products/data/entity/product_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/constants/colors.dart';
+
 class ProductDetailsPage extends StatelessWidget {
   final ProductModel productModel;
 
@@ -48,7 +50,7 @@ class ProductDetailsPage extends StatelessWidget {
                             icon: Icon(
                               Icons.arrow_back_ios_rounded,
                               size: 20.sp,
-                              color: Colors.deepPurple,
+                              color: primaryColor,
                             ))),
                   )
                 ],
@@ -75,7 +77,7 @@ class ProductDetailsPage extends StatelessWidget {
             const Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: 15.0).h,
-              child: CustomButton(color: Colors.deepPurple,size: Size(250.w, 35.h),
+              child: CustomButton(color: primaryColor,size: Size(250.w, 35.h),
                 onPressed: () =>
                   launchUrl(Uri.parse(productModel.link??''))
 

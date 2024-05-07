@@ -7,6 +7,7 @@ import 'package:pricer/features/auth/presentation/pages/login_page.dart';
 import 'package:pricer/features/home/presentation/pages/homePage.dart';
 import 'package:pricer/firebase_options.dart';
 
+import 'core/constants/colors.dart';
 import 'core/serviceLocator/service_locator.dart';
 import 'data/helpers/cache_helper.dart';
 GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
@@ -19,7 +20,7 @@ void main() async {
   );
   await CacheHelper().init();
  String? uid= serviceLocator<CacheHelper>().getData(key: 'uid');
-  runApp( MyApp(starting:uid==null||uid=='null'?LoginPage():HomePage()));
+  runApp( MyApp(starting:uid==null||uid=='null'?const LoginPage():const HomePage()));
 }
 
 class MyApp extends StatelessWidget {
@@ -36,9 +37,9 @@ class MyApp extends StatelessWidget {
           builder: (context, child) => MaterialApp(
               title: 'Pricer',
               debugShowCheckedModeBanner: false,
-              theme: ThemeData(
+              theme: ThemeData(progressIndicatorTheme: const ProgressIndicatorThemeData(color: Colors.white),
                 colorScheme:
-                    ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                    ColorScheme.fromSeed(seedColor: primaryColor),
                 useMaterial3: true,
               ),
               home:   starting),
