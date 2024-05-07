@@ -1,32 +1,28 @@
 class ScrapingModel {
-  List<ProductModel>? amazonProducts;
-  List<ProductModel>? noonProducts;
-  List<ProductModel>? btechProducts;
+  List<ProductModel>? newProducts;
   List<ProductModel>? dubizzleProducts;
 
   ScrapingModel(
-      {this.amazonProducts,
-        this.noonProducts,
-        this.btechProducts,
+      {this.newProducts,
+
         this.dubizzleProducts});
 
   ScrapingModel.fromJson(Map<String, dynamic> json) {
+    newProducts = <ProductModel>[];
+
     if (json['amazon_products'] != null) {
-      amazonProducts = <ProductModel>[];
       json['amazon_products'].forEach((v) {
-        amazonProducts!.add(ProductModel.fromJson(v));
+        newProducts!.add(ProductModel.fromJson(v));
       });
     }
     if (json['noon_products'] != null) {
-      noonProducts = <ProductModel>[];
-      json['noon_products'].forEach((v) {
-        noonProducts!.add(ProductModel.fromJson(v));
+       json['noon_products'].forEach((v) {
+         newProducts!.add(ProductModel.fromJson(v));
       });
     }
     if (json['btech_products'] != null) {
-      btechProducts = <ProductModel>[];
-      json['btech_products'].forEach((v) {
-        btechProducts!.add(ProductModel.fromJson(v));
+       json['btech_products'].forEach((v) {
+         newProducts!.add(ProductModel.fromJson(v));
       });
     }
     if (json['dubizzle_products'] != null) {
@@ -37,27 +33,7 @@ class ScrapingModel {
     }
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (amazonProducts != null) {
-      data['amazon_products'] =
-          amazonProducts!.map((v) => v.toJson()).toList();
-    }
-    if (noonProducts != null) {
-      data['noon_products'] =
-          noonProducts!.map((v) => v.toJson()).toList();
-    }
-    if (btechProducts != null) {
-      data['btech_products'] =
-          btechProducts!.map((v) => v.toJson()).toList();
-    }
-    if (dubizzleProducts != null) {
-      data['dubizzle_products'] =
-          dubizzleProducts!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
+ }
 
 class ProductModel {
   String? title;

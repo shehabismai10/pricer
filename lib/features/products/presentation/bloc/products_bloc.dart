@@ -13,6 +13,7 @@ part 'products_state.dart';
 class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   ProductsBloc() : super(ProductsState.init()) {
     on<GetProducts>(onGetProducts);
+    on<SortProducts>(onSortProducts);
   }
 
   ProductRepositoryImplementation productLocator =
@@ -24,7 +25,24 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     result.fold(
         (l) => emit(
             state.copyWith(message: l.message, status: ProductStatus.error)),
-        (r) => emit(
-            state.copyWith(scrapingModel: r, status: ProductStatus.loaded)));
+        (r) {
+          r.newProducts?.shuffle();
+          emit(
+              state.copyWith(scrapingModel: r, status: ProductStatus.loaded));
+        });
   }
+
+  void onSortProducts(SortProducts event,Emitter<ProductsState>emit){
+    List<ProductModel> ?temp=state.scrapingModel?.newProducts;
+
+    // if(event.increment){
+    //   temp?.sort((a, b) {
+    //    int? firstPrice=int.tryParse(a.price?.replaceAll("EGP", '')??'');
+    //    int? secondPrice=int.tryParse(b.price?.replaceAll("EGP", '')??'');
+    //    firstPrice>secondPrice
+    //   },)
+    // }else{}
+
+  }
+
 }

@@ -45,7 +45,7 @@ class ProductsList extends StatelessWidget {
             itemBuilder: (context, index) {
               ProductModel? productModel =
                   getProductList(types, state.scrapingModel)?[index];
-              return productModel == null||productModel.title?.isEmpty==true
+              return productModel == null || productModel.title?.isEmpty == true
                   ? const SizedBox.shrink()
                   : ProductWidget(productModel: productModel);
             },
@@ -60,16 +60,11 @@ class ProductsList extends StatelessWidget {
   List<ProductModel>? getProductList(
       SiteTypes types, ScrapingModel? scrapingModel) {
     switch (types) {
-      case SiteTypes.amazon:
-        return scrapingModel?.amazonProducts;
-      case SiteTypes.noon:
-        return scrapingModel?.noonProducts;
+      case SiteTypes.newProducts:
+        return scrapingModel?.newProducts;
 
-      case SiteTypes.dubizzle:
+      case SiteTypes.usedProducts:
         return scrapingModel?.dubizzleProducts;
-
-      case SiteTypes.btech:
-        return scrapingModel?.btechProducts;
     }
   }
 }

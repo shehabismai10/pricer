@@ -22,33 +22,36 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController search = TextEditingController();
     return DefaultTabController(
-      length: 4,
+      length: 2,
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: primaryColor,
           title: Text(
             'Pricer',
-            style: regularTextStyle.copyWith(color: Colors.white,fontWeight: FontWeight.w900),
-          ),actions:[ Padding(
-            padding: const EdgeInsets.only(right: 8.0).w,
-            child: InkWell(onTap: () {
-              navigateTo(context, const ProfilePage());
-            },child: const Icon(Icons.settings,color: Colors.white,)),
-          ),],
+            style: regularTextStyle.copyWith(
+                color: Colors.white, fontWeight: FontWeight.w900),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0).w,
+              child: InkWell(
+                  onTap: () {
+                    navigateTo(context, const ProfilePage());
+                  },
+                  child: const Icon(
+                    Icons.settings,
+                    color: Colors.white,
+                  )),
+            ),
+          ],
           bottom: TabBar(
             tabs: const [
               Tab(
-                text: 'Amazon',
+                text: 'New',
               ),
               Tab(
-                text: 'Noon',
-              ),
-              Tab(
-                text: 'B-tech',
-              ),
-              Tab(
-                text: 'Used',
+                text: 'Pre-owned',
               ),
             ],
             labelStyle: regularTextStyle.copyWith(
@@ -88,7 +91,6 @@ class HomePage extends StatelessWidget {
                           }
                         },
                       ),
-
                       CustomButton(
                         color: primaryColor,
                         size: Size(90.w, 30.h),
@@ -110,16 +112,21 @@ class HomePage extends StatelessWidget {
                       )
                     ],
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10, top: 10).h,
+                    child: Align(
+                        alignment: Alignment.centerRight,
+                        child: IconButton(
+                            onPressed: () {}, icon: Icon(Icons.sort))),
+                  ),
                   state.status == ProductStatus.loading
-                      ? const LottieWidget(type: LottieType.searching)
+                      ? const LottieWidget(type: LottieType.loading)
                       : const Expanded(
-                        child: TabBarView(children: [
-                          ProductsList(types: SiteTypes.amazon),
-                          ProductsList(types: SiteTypes.noon),
-                          ProductsList(types: SiteTypes.btech),
-                          ProductsList(types: SiteTypes.dubizzle),
-                        ]),
-                      )
+                          child: TabBarView(children: [
+                            ProductsList(types: SiteTypes.newProducts),
+                            ProductsList(types: SiteTypes.usedProducts),
+                          ]),
+                        )
                 ],
               );
             },

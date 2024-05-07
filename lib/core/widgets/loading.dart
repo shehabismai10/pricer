@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pricer/core/constants/strings.dart';
 
@@ -8,7 +9,10 @@ class LottieWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   Center(child: Lottie.asset(getLottie(type)),);
+    return   Center(child: Padding(
+      padding: const EdgeInsets.only(top: 20.0).h,
+      child: Lottie.asset(getLottie(type)),
+    ),);
   }
 }
 String getLottie(LottieType type){

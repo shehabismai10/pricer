@@ -7,3 +7,8 @@ class GetProducts extends ProductsEvent{
 
   GetProducts({required this.query});
 }
+class SortProducts extends ProductsEvent{
+  final bool increment;
+
+  SortProducts({required this.increment});
+}

@@ -19,8 +19,7 @@ class ProductRepositoryImplementation implements ProductRepository {
     try {
       final res = await NetworkHelper.post(
           endPoint: compareApi, body: {"search_string": query});
-      log(res.body);
-       if (res.statusCode == 200) {
+        if (res.statusCode == 200) {
         var body = json.decode(res.body);
         ScrapingModel productModel = ScrapingModel.fromJson(body);
         return Right(productModel);

@@ -1,6 +1,1 @@
-enum SiteTypes{
-  amazon,
-  noon,
-  dubizzle,
-  btech
-}
+enum SiteTypes { newProducts, usedProducts }
