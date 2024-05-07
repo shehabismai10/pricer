@@ -31,23 +31,25 @@ class ProductsList extends StatelessWidget {
     }, builder: (context, state) {
       if (state.scrapingModel != null &&
           getProductList(types, state.scrapingModel) != null) {
-        return ListView.separated(
-          separatorBuilder: (context, index) {
-            return const Divider(
-              height: 2,
-              color: Colors.grey,
-            );
-          },
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: getProductList(types, state.scrapingModel)?.length ?? 0,
-          itemBuilder: (context, index) {
-            ProductModel? productModel =
-                getProductList(types, state.scrapingModel)?[index];
-            return productModel == null||productModel.title?.isEmpty==true
-                ? const SizedBox.shrink()
-                : ProductWidget(productModel: productModel);
-          },
+        return SingleChildScrollView(
+          child: ListView.separated(
+            separatorBuilder: (context, index) {
+              return const Divider(
+                height: 2,
+                color: Colors.grey,
+              );
+            },
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: getProductList(types, state.scrapingModel)?.length ?? 0,
+            itemBuilder: (context, index) {
+              ProductModel? productModel =
+                  getProductList(types, state.scrapingModel)?[index];
+              return productModel == null||productModel.title?.isEmpty==true
+                  ? const SizedBox.shrink()
+                  : ProductWidget(productModel: productModel);
+            },
+          ),
         );
       } else {
         return const LottieWidget(type: LottieType.empty);

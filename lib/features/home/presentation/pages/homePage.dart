@@ -30,9 +30,9 @@ class HomePage extends StatelessWidget {
           title: Text(
             'Pricer',
             style: regularTextStyle.copyWith(color: Colors.white,fontWeight: FontWeight.w900),
-          ),leading: InkWell(onTap: () {
-            navigateTo(context, ProfilePage());
-          },child: const Icon(Icons.person,color: Colors.white,)),
+          ),actions:[ InkWell(onTap: () {
+            navigateTo(context, const ProfilePage());
+          },child: const Icon(Icons.settings,color: Colors.white,)),],
           bottom: TabBar(
             tabs: const [
               Tab(
@@ -70,60 +70,54 @@ class HomePage extends StatelessWidget {
               }
             },
             builder: (context, state) {
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomTextField(
-                          width: 200.w,
-                          textEditingController: search,
-                          hintText: 'ex: ps5',
-                          validation: (p0) {
-                            if (p0 == null || p0.isNotEmpty) {
-                              return 'please enter search value';
-                            }
-                          },
-                        ),
+              return Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomTextField(
+                        width: 200.w,
+                        textEditingController: search,
+                        hintText: 'ex: ps5',
+                        validation: (p0) {
+                          if (p0 == null || p0.isNotEmpty) {
+                            return 'please enter search value';
+                          }
+                        },
+                      ),
 
-                        CustomButton(
-                          color: Colors.deepPurple,
-                          size: Size(90.w, 30.h),
-                          onPressed: () {
-                            if (state.status != ProductStatus.loading) {
-                              if (search.text.isNotEmpty) {
-                                BlocProvider.of<ProductsBloc>(context,
-                                        listen: false)
-                                    .add(GetProducts(query: search.text));
-                              }
+                      CustomButton(
+                        color: Colors.deepPurple,
+                        size: Size(90.w, 30.h),
+                        onPressed: () {
+                          if (state.status != ProductStatus.loading) {
+                            if (search.text.isNotEmpty) {
+                              BlocProvider.of<ProductsBloc>(context,
+                                      listen: false)
+                                  .add(GetProducts(query: search.text));
                             }
-                          },
-                          title: 'Search',
-                          child: Text(
-                            'Search',
-                            style: regularTextStyle.copyWith(
-                                color: Colors.white, fontSize: 13.sp),
-                          ),
-                        )
-                      ],
-                    ),
-                    state.status == ProductStatus.loading
-                        ? const LottieWidget(type: LottieType.loading)
-                        : Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15).r,
-                                border: Border.all(color: primaryColor)),
-                            height: MediaQuery.of(context).size.height - 100,
-                            child: const TabBarView(children: [
-                              ProductsList(types: SiteTypes.amazon),
-                              ProductsList(types: SiteTypes.noon),
-                              ProductsList(types: SiteTypes.dubizzle),
-                              ProductsList(types: SiteTypes.btech),
-                            ]),
-                          )
-                  ],
-                ),
+                          }
+                        },
+                        title: 'Search',
+                        child: Text(
+                          'Search',
+                          style: regularTextStyle.copyWith(
+                              color: Colors.white, fontSize: 13.sp),
+                        ),
+                      )
+                    ],
+                  ),
+                  state.status == ProductStatus.loading
+                      ? const LottieWidget(type: LottieType.searching)
+                      : const Expanded(
+                        child: TabBarView(children: [
+                          ProductsList(types: SiteTypes.amazon),
+                          ProductsList(types: SiteTypes.noon),
+                          ProductsList(types: SiteTypes.btech),
+                          ProductsList(types: SiteTypes.dubizzle),
+                        ]),
+                      )
+                ],
               );
             },
           ),
