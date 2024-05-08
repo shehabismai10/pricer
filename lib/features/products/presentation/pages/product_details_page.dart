@@ -61,7 +61,7 @@ class ProductDetailsPage extends StatelessWidget {
               child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    productModel.price ?? '',
+                    productModel.price.toString() ?? '',
                     style: standardTextStyle.copyWith(color: Colors.green),
                     textAlign: TextAlign.left,
                   )),
@@ -79,7 +79,7 @@ class ProductDetailsPage extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 15.0).h,
               child: CustomButton(color: primaryColor,size: Size(250.w, 35.h),
                 onPressed: () =>
-                  launchUrl(Uri.parse(productModel.link??''))
+                    launchUrl(Uri.parse(productModel.link??''))
 
                 ,
                 title: '',

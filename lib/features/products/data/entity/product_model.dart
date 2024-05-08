@@ -16,13 +16,13 @@ class ScrapingModel {
       });
     }
     if (json['noon_products'] != null) {
-       json['noon_products'].forEach((v) {
-         newProducts!.add(ProductModel.fromJson(v));
+      json['noon_products'].forEach((v) {
+        newProducts!.add(ProductModel.fromJson(v));
       });
     }
     if (json['btech_products'] != null) {
-       json['btech_products'].forEach((v) {
-         newProducts!.add(ProductModel.fromJson(v));
+      json['btech_products'].forEach((v) {
+        newProducts!.add(ProductModel.fromJson(v));
       });
     }
     if (json['dubizzle_products'] != null) {
@@ -33,11 +33,11 @@ class ScrapingModel {
     }
   }
 
- }
+}
 
 class ProductModel {
   String? title;
-  String? price;
+  double? price;
   String? image;
   String? link;
 
@@ -45,7 +45,7 @@ class ProductModel {
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     title = json['title'];
-    price = json['price'];
+    price = double.tryParse(json['price'].toString());
     image = json['image'].toString().trim();
     link = json['link'];
   }
@@ -59,4 +59,3 @@ class ProductModel {
     return data;
   }
 }
-

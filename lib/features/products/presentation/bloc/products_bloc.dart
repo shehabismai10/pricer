@@ -33,15 +33,24 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   }
 
   void onSortProducts(SortProducts event,Emitter<ProductsState>emit){
-    List<ProductModel> ?temp=state.scrapingModel?.newProducts;
+    List<ProductModel> ?newTemp=state.scrapingModel?.newProducts;
+    List<ProductModel> ?usedTemp=state.scrapingModel?.dubizzleProducts;
+    ScrapingModel? scrapingModel=state.scrapingModel;
 
-    // if(event.increment){
-    //   temp?.sort((a, b) {
-    //    int? firstPrice=int.tryParse(a.price?.replaceAll("EGP", '')??'');
-    //    int? secondPrice=int.tryParse(b.price?.replaceAll("EGP", '')??'');
-    //    firstPrice>secondPrice
-    //   },)
-    // }else{}
+    if(state.increment==false||state.increment==null){
+      newTemp?.sort((a, b) => (a.price??0).compareTo(b.price??0),);
+      usedTemp?.sort((a, b) => (a.price??0).compareTo(b.price??0),);
+    scrapingModel?.newProducts=newTemp;
+    scrapingModel?.dubizzleProducts=usedTemp;
+    emit(state.copyWith(scrapingModel: scrapingModel,increment: true));
+    }else{
+      newTemp?.sort((a, b) => (b.price??0).compareTo(a.price??0),);
+      usedTemp?.sort((a, b) => (b.price??0).compareTo(a.price??0),);
+       scrapingModel?.newProducts=newTemp;
+      scrapingModel?.dubizzleProducts=usedTemp;
+
+      emit(state.copyWith(scrapingModel: scrapingModel,increment: false));
+    }
 
   }
 

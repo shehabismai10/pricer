@@ -46,7 +46,7 @@ class ProductWidget extends StatelessWidget {
             subtitle: Padding(
               padding: const EdgeInsets.only(top: 5.0).h,
               child: Text(
-                productModel.price ?? "0",
+                productModel.price.toString() ?? "0",
                 style: regularTextStyle.copyWith(color: Colors.green),
               ),
             ),

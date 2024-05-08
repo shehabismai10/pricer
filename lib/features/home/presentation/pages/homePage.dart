@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -116,8 +118,13 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 10, top: 10).h,
                     child: Align(
                         alignment: Alignment.centerRight,
-                        child: IconButton(
-                            onPressed: () {}, icon: Icon(Icons.sort))),
+                        child: Transform.rotate(angle:  state.increment==false? 0 :180 * pi / 180,
+
+                          child: IconButton(
+                              onPressed: () {
+                                BlocProvider.of<ProductsBloc>(context,listen: false).add(SortProducts());
+                              }, icon: Icon(Icons.sort)),
+                        )),
                   ),
                   state.status == ProductStatus.loading
                       ? const LottieWidget(type: LottieType.loading)

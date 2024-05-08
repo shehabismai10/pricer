@@ -18,23 +18,30 @@ class ProductsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ProductsBloc, ProductsState>(
         listener: (context, state) {
-      if (state.status == ProductStatus.error) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return ErrorDialog(message: state.message ?? '');
-            },
-          );
-        });
-      }
-    }, builder: (context, state) {
+          if (state.status == ProductStatus.error) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return ErrorDialog(message: state.message ?? '');
+                },
+              );
+            });
+          }
+        }, builder: (context, state) {
       if (state.scrapingModel != null &&
           getProductList(types, state.scrapingModel) != null) {
         return SingleChildScrollView(
           child: ListView.separated(
             separatorBuilder: (context, index) {
-              return const Divider(
+              ProductModel? productModel =
+              getProductList(types, state.scrapingModel)?[index];
+              return  productModel == null || productModel.title == 'null' ||
+                  productModel.title == null ||
+                  productModel.title?.isEmpty == true || productModel.price==null
+
+                  ? const SizedBox.shrink()
+                  :  const Divider(
                 height: 2,
                 color: Colors.grey,
               );
@@ -44,10 +51,16 @@ class ProductsList extends StatelessWidget {
             itemCount: getProductList(types, state.scrapingModel)?.length ?? 0,
             itemBuilder: (context, index) {
               ProductModel? productModel =
-                  getProductList(types, state.scrapingModel)?[index];
-              return productModel == null || productModel.title?.isEmpty == true
-                  ? const SizedBox.shrink()
-                  : ProductWidget(productModel: productModel);
+              getProductList(types, state.scrapingModel)?[index];
+              return productModel == null || productModel.title == 'null' ||
+                  productModel.title == null ||
+                  productModel.title?.isEmpty == true || productModel.price==null
+
+              ? const SizedBox.shrink()
+                  : ProductWidget(productModel
+              :
+              productModel
+              );
             },
           ),
         );
@@ -57,8 +70,8 @@ class ProductsList extends StatelessWidget {
     });
   }
 
-  List<ProductModel>? getProductList(
-      SiteTypes types, ScrapingModel? scrapingModel) {
+  List<ProductModel>? getProductList(SiteTypes types,
+      ScrapingModel? scrapingModel) {
     switch (types) {
       case SiteTypes.newProducts:
         return scrapingModel?.newProducts;
