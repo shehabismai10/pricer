@@ -1,0 +1,9 @@
+# finalprice/urls.py
+
+from django.urls import path
+from finalprice import views
+
+urlpatterns = [
+    path('', views.home, name='home'),  # Define the home view for the root URL
+    path('compare/', views.compare_products, name='compare_products'),
+]

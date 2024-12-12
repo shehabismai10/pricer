@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Comparison Results</title>
+</head>
+<body>
+    <h1>Product Comparison Results</h1>
+    {% if amazon_products %}
+    <h2>Amazon</h2>
+    <ul>
+        {% for product in amazon_products %}
+        <li>
+            <img src="{{ product.image }}" alt="{{ product.title }}">
+            <a href="{{ product.link }}">{{ product.title }}</a>
+            <span>{{ product.price }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if noon_products %}
+    <h2>Noon</h2>
+    <ul>
+        {% for product in noon_products %}
+        <li>
+            <img src="{{ product.image }}" alt="{{ product.title }}">
+            <a href="{{ product.link }}">{{ product.name }}</a>
+            <span>{{ product.price }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if btech_products %}
+    <h2>BTECH</h2>
+    <ul>
+        {% for product in btech_products %}
+        <li>
+            <img src="{{ product.image }}" alt="{{ product.name }}">
+            <a href="{{ product.link }}">{{ product.name }}</a>
+            <span>{{ product.price }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if dubizzle_products %}
+    <h2>Dubizzle</h2>
+    <ul>
+        {% for product in dubizzle_products %}
+        <li>
+            <img src="{{ product.image }}" alt="{{ product.title }}">
+            <a href="{{ product.link }}">{{ product.title }}</a>
+            <span>{{ product.price }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
