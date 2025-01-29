@@ -1,16 +1,54 @@
-# pricer
+📌 Overview
+Many online stores price their products differently, making it difficult for customers to find the best deal. Pricer simplifies this by aggregating price data from various websites, allowing users to compare prices in one place.
 
-A new Flutter project.
+🚀 Features
+✅ Search for any product and compare prices across multiple stores.
+✅ Web scraping technology to gather real-time prices.
+✅ User-friendly interface for easy navigation.
+✅ Secure authentication using Firebase.
+✅ Built with Django for the backend and Flutter for the frontend.
 
-## Getting Started
+🛠️ Tech Stack
+Backend: Django, Python, Web Scraping
+Frontend: Flutter
+Database: Firebase, MySQL
+Hosting: Google Cloud / AWS
 
-This project is a starting point for a Flutter application.
+📦 Installation
+1️⃣ Clone the Repository
+bash
+Copy
+Edit
+git clone https://github.com/shehabismai10/pricer.git
+cd pricer
+2️⃣ Set Up the Backend (Django)
+bash
+Copy
+Edit
+# Create a virtual environment
+python -m venv venv
+source venv/bin/activate  # (On Windows use `venv\Scripts\activate`)
 
-A few resources to get you started if this is your first Flutter project:
+# Install dependencies
+pip install -r requirements.txt
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# Run migrations
+python manage.py migrate
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Start the server
+python manage.py runserver
+3️⃣ Set Up the Frontend (Flutter)
+bash
+Copy
+Edit
+cd frontend
+flutter pub get
+flutter run
+📌 Usage
+1️⃣ Open the application and enter a product name in the search bar.
+2️⃣ The app fetches and displays prices from multiple websites.
+3️⃣ Click on a product to view details and purchase from the best-priced store.
+
+📜 License
+This project is open-source under the MIT License.
+
